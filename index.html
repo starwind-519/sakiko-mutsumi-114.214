@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>末日生存指南</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="game-frame">
+  <!-- === 1. 主菜单 === -->
+  <div id="mainMenu">
+    <div class="main-visual-container">
+      <img src="image/mtsk.main.png" alt="主视觉图" class="main-visual-img" />
+      <div class="menu-content">
+        <h1>末日生存指南</h1>
+        <p>祥子与睦的十四日</p>
+        <div class="menu-buttons">
+          <button class="menu-btn" id="startGameBtn">开始游戏</button>
+          <button class="menu-btn" id="loadGameBtn">读取存档</button>
+          <button class="menu-btn" id="exitGameBtn">退出游戏</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === 2. 游戏主容器 === -->
+  <div id="gameContainer" class="game-container" style="display:none;">
+
+    <!-- 时间显示 -->
+    <div id="dayTimeDisplay" class="dayTime-display">第 1 天 - 早晨</div>
+
+    <!-- Q版插图展示区 -->
+    <div id="actionImage" class="action-image hidden" aria-hidden="true">
+      <img src="" alt="Action Illustration">
+    </div>
+
+    <div class="main-content">
+      <!-- 左侧：数值与菜单 -->
+      <div class="left-panel" id="statusPanel">
+
+        <div class="stats-panel">
+        <!-- 数值条 -->
+        <div class="stat">
+          <div class="stat-header">
+            <div class="stat-label">体力</div>
+            <div class="stat-value" id="staminaValue">100</div>
+          </div>
+          <div class="bar-container">
+            <div class="bar" id="staminaBar"></div>
+          </div>
+        </div>
+
+          <div class="stat">
+            <div class="stat-header">
+              <div class="stat-label"><span class="sakiko-text">祥子</span>心情</div>
+              <div class="stat-value" id="sakikoMoodValue">50</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" id="sakikoMoodBar"></div>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-header">
+              <div class="stat-label"><span class="mutsumi-text">睦</span>心情</div>
+              <div class="stat-value" id="mutsumiMoodValue">50</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" id="mutsumiMoodBar"></div>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-header">
+              <div class="stat-label">感染值</div>
+              <div class="stat-value" id="infectionValue">20</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" id="infectionBar"></div>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-header">
+              <div class="stat-label">物资</div>
+              <div class="stat-value" id="suppliesValue">20</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" id="suppliesBar"></div>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-header">
+              <div class="stat-label">情感值</div>
+              <div class="stat-value" id="loveValue">0</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" id="loveBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 控制按钮 -->
+        <div class="save-load-buttons">
+          <button id="saveBtn">存档</button>
+          <button id="loadBtn">读档</button>
+          <button id="menuBtn">菜单</button>
+        </div>
+      </div>
+
+      <!-- 右侧：故事与选项 -->
+      <div class="right-panel" id="statusPanel">
+        <div id="storyText" class="story-container"></div>
+        <div id="actionsContainer" class="actions-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === 3. 存档菜单 === -->
+  <div id="saveMenu" class="modal-menu" style="display:none;">
+    <div class="save-menu-content">
+      <h2>选择存档</h2>
+      <div id="saveSlots"></div>
+      <button id="saveMenuBack" type="button">返回</button>
+    </div>
+  </div>
+
+  <!-- === 4. 剧情相关弹窗 === -->
+
+  <!-- 4.1 开场剧情 -->
+  <div class="modal" id="introModal" style="display:none;">
+    <div class="modal-content">
+      <h2>序章</h2>
+      <div class="modal-text" id="introtext"></div>
+    </div>
+      <div class="btn-area">
+        <button class="modal-btn" id="continueIntroBtn">继续</button> 
+      </div>
+  </div>
+
+  <!-- 4.2 数值说明 -->
+  <div class="modal" id="statsIntroModal" style="display:none;">
+    <div class="modal-content">
+      <h2>数值说明</h2>
+        <div class="modal-text" id="statsIntroText"></div>
+    </div>
+      <div class="btn-area">
+        <button class="modal-btn" id="startDay1Btn">开始第一天</button>
+      </div>
+  </div>
+
+  <!-- 4.3 教程 -->
+  <div class="modal" id="tutorialModal" style="display:none;">
+    <div class="modal-content">
+        <h2>新手教程</h2>
+        <div class="tutorial-steps">
+          <div id="step1" class="tutorial-step active"></div>
+          <div id="step2" class="tutorial-step"></div>
+          <div id="step3" class="tutorial-step"></div>
+        </div>
+        <div id="tutorialText" class="modal-text"></div>  
+     </div>
+    <div class="btn-area">
+      <button class="modal-btn" id="nextTutorialBtn">下一步</button>
+      <button class="modal-btn" id="skipTutorialBtn">跳过教程</button>
+    </div>
+  </div>
+
+  <!-- 4.4 对话与选项弹窗 -->
+  <div class="dialog-popup" id="dialogPopup" role="dialog" aria-modal="true" style="display:none;">
+    <h2 class="dialog-title">特殊剧情</h2> 
+    <div id="dialogContent" class="dialog-content"></div>
+    <div id="dialogOptions" class="dialog-options"></div>
+  </div>
+
+  <!-- 4.5 随机盲盒 -->
+  <div class="modal" id="blindBoxModal" style="display:none;">
+    <div class="modal-content">
+      <h2 id="blindBoxTitle">随机盲盒</h2>
+      <p id="blindBoxMessage"></p>
+      <div id="blindBoxImageArea"></div>
+      <div id="blindBoxOptions"></div>
+      <div id="blindBoxResult" style="display:none;">
+        <p id="blindBoxResultText"></p>
+        <button id="closeBlindBoxBtn">继续</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.6 结局 -->
+  <div class="modal" id="endingModal" style="display:none;">
+      <div class="modal-content">
+        <h2 id="endingTitle">结局</h2>
+        <div class="modal-text" id="endingText"></div>
+      </div>
+    <div class="btn-area">
+      <button class="modal-btn" id="nextEndingBtn">继续</button>
+      <button class="modal-btn" id="restartGameBtn" style="display:none;">重新开始游戏</button>
+    </div>
+  </div>
+
+  <!-- === 5. 通知与遮罩 === -->
+  <div id="notification" class="notification" style="display:none;">
+    <div id="notificationText" aria-live="polite"></div>
+  </div>
+
+  <div id="overlay" class="overlay" style="display:none;"></div>
+
+</div>
+
+  <!-- === 6. JS 文件加载顺序（注意顺序啊） === -->
+  <script src="actions.js"></script>
+  <script src="actionevents.js"></script>
+  <script src="events.js"></script>
+  <script src="endings.js"></script>
+  <script src="main.js"></script>
+
+
+</body>
+</html>
