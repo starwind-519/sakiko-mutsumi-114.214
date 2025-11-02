@@ -260,7 +260,7 @@ treatMutsumi: [
           "那一瞬间，<span class='mutsumi-text'>睦</span>愣住了。<br>" +
           "她的眼眶微微发红，随后伸手覆在你的手背上。<br>" +
           "“……我不会丢下祥的。绝对不会。”<br>" +
-          "她的声音很稳，鉴定的对你做出承诺。",
+          "她的声音很稳， 坚定的对你做出承诺。",
         effect: () => {
           gameState.love += 2;
           gameState.mutsumiMood += 3;
@@ -931,3 +931,4 @@ reinforceHouse: [
 };
 
 window.actionEvents = actionEvents;
+
