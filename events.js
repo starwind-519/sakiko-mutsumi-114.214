@@ -537,7 +537,7 @@ const specialEvents = [
                     "“别太累了，好吗？”<br><br>" +
                     "她说完，转身走向角落，背影融进暗红的火光里。<br>" +
                     "你怔怔地站着，唇边还残留着她靠近时的气息——<br>" +
-                    "那一瞬的温度，短暂得不再qin'xi，却让你的心久久不能平静。",
+                    "那一瞬的温度，短暂得不再清晰，却让你的心久久不能平静。",
 
                 effect: () => {
                     applyEffects({ love: +4, sakikoMood: +5, mutsumiMood: +5 });
@@ -674,3 +674,4 @@ const specialEvents = [
 
 window.events = events;
 window.specialEvents = specialEvents;
+
